@@ -1,0 +1,33 @@
+.EditprojectContainer {
+    height: 100vh;
+    width: auto;
+    background-color: #0d727f;
+    margin-bottom: 94rem;
+}
+
+.prevImg {
+    display: flex;
+    flex-direction: column;
+    font-weight: 600;
+}
+
+
+
+
+
+@media (max-width: 575px) {
+    .prevImg>img {
+        width: 70%;
+        height: 180px;
+        object-fit: cover;
+        opacity: 0.8;
+        border-radius: 14px;
+        margin: 0.5rem 0rem 14px 3rem;
+        margin-bottom: 14px;
+        margin-left: 3rem;
+    }
+
+    .EditprojectContainer {
+        margin-bottom: 78rem;
+    }
+}

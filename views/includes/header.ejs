@@ -1,0 +1,32 @@
+<header class="navbar sticky-top bg-info opacity-100">
+    <div class="nav-container">
+
+        <div class="logo">MQ</div>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="/home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <% if (user) { %>
+                <a href="/logout" class="authBtns" >Logout</a>
+            <% } else { %>
+                <a href="/login" class="authBtns">Login</a>
+                <a href="/signup" class="authBtns">Sign Up</a>
+            <% } %>
+        </nav>
+
+        <div class="nav-actions">
+            <% if (user) { %>
+                <a href="/logout" class="nav-btn solid">Logout</a>
+            <% } else { %>
+                <a href="/login"class="nav-btn outline">Login</a>
+                <a href="/signup" class="nav-btn solid">Sign Up</a>
+            <% } %>
+        </div>
+
+        <div class="menu-toggle" id="menuToggle">☰</div>
+
+    </div>
+</header>

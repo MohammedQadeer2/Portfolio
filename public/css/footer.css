@@ -1,0 +1,96 @@
+/* ===== FOOTER ===== */
+.portfolio-footer {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  color: #e5e7eb;
+  padding: 4rem 1.5rem 2rem;
+  /* margin-top: 78rem; */
+}
+
+
+
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-logo {
+  width: 55px;
+  height: 55px;
+  background: #22d3ee;
+  color: #020617;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.footer-brand p {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+/* Contact */
+.portfolio-footer h5 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.footer-contact {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contact li {
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.footer-contact a {
+  color: #22d3ee;
+  text-decoration: none;
+}
+
+/* Social */
+.footer-social {
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-social a {
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+  background: #22d3ee;
+  color: #020617;
+  transform: translateY(-3px);
+}
+
+/* Bottom */
+.footer-bottom {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.portfolio-footer * {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

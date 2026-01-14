@@ -1,0 +1,200 @@
+/* ------------------ Base Reset ------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0d727f;
+  color: #e5e7eb;
+}
+
+/* ------------------ Layout ------------------ */
+.mainLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* ------------------ Hero Section ------------------ */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #11c5cb, #25fccd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.hero-container {
+  max-width: 1100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  /* margin-top: 3rem; */
+  margin-left: 6rem;
+  /* border: 2px solid black; */
+  gap: 4rem;
+}
+.hero-content {
+  max-width: 520px;
+  padding: 2rem;
+}
+
+/* ------------------ Image ------------------ */
+.hero-image img {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transition: transform 0.4s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.05);
+}
+
+/* ------------------ Text ------------------ */
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.hero-content h2 {
+  font-size: 1.3rem;
+  margin: 0.8rem 0;
+  color: green;
+}
+
+.hero-content p {
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: darkslategray;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 0.5rem 0.5rem;
+  text-align: center;
+  height: 100%;
+  transition: all 0.4s ease;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+/* ------------------ Buttons ------------------ */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.hero-buttons > .btn {
+  padding: 0.75rem 1.6rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  background-color: #0ea5e9;
+}
+
+.primary {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.primary:hover {
+  background: #0ea5e9;
+}
+
+.secondary {
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+}
+
+.secondary:hover {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+/* ------------------ Animations ------------------ */
+.animate-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  animation: slideLeft 1s ease forwards;
+}
+
+.animate-right {
+  opacity: 0;
+  transform: translateX(40px);
+  animation: slideRight 1s ease forwards;
+}
+
+@keyframes slideLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
+
+
+
+/* ------------------ Responsive ------------------  */
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    text-align: center;
+    margin-left: 0;
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .hero {
+    min-height: 100vh;   /* instead of 100vh */
+    padding: 1.5rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    font-size: smaller;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-buttons > .btn {
+    font-size: smaller;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-content h2 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+}

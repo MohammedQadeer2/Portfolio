@@ -1,0 +1,179 @@
+<section class="hero" id="home">
+  <div class="hero-container">
+
+    <!-- Profile Image -->
+    <div class="hero-image animate-left">
+      <img src="../images/ProfileImage.jpg" alt="Profile Picture">
+    </div>
+
+    <!-- Text Content -->
+    <div class="hero-content animate-right">
+      <h1>Mohammed Qadeer</h1>
+      <h2>Software Developer | Backend Engineer | Full Stack Developer</h2>
+
+      <p>
+        Passionate software developer focused on building reliable, scalable,
+        and high-performance web applications. I enjoy designing clean backend
+        architectures, writing maintainable code, and delivering smooth user
+        experiences across the full stack.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="../images/resume.pdf" class="btn primary">Download Resume</a>
+        <a href="mailto:mr0060195@gmail.com" class="btn secondary">Contact Me</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!----------------------About SECTION------------------------->
+
+<section class="hero about section-body" id="about">
+  <div class="hero-container">
+    <div class="about-image animate-left">
+      <img src="../images/about.jpg" alt="Profile Picture">
+    </div>
+    <div class="about-container">
+      <h2>About Me</h2>
+      <div class="skill-card">
+        I am a Software Developer and Backend Engineer passionate about building
+        clean, scalable web applications and solving real-world problems using creativity.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!----------------------SKILLS SECTION------------------------->
+
+<section class="skills hero section-body" id="skills">
+  <div class="container">
+    <div class="skills-header text-center mb-5">
+      <h2>My Skills</h2>
+      <p>Technologies & tools I work with</p>
+    </div>
+
+    <div class="skill-box">
+      <% for( skill of allskill ) { %>
+      <div class="skill-item"><%=skill.newSkill%></div>
+      <% } %>
+      <% if (user && user.role==="admin" ) { %>
+          <div class=" skill-item addSkills">
+          <button id="AddSkillbtn" class="skillAdd">+ Add </button>
+          </div>
+      <% } %>
+    </div>
+    <% if (user && user.role==="admin" ) { %>
+        <div class="Skillform">
+          <form action="/addSkill" method="POST">
+            <label for="newSkill">New Skill</label>
+            <input type="text" name="newSkill" id="newSkill" placeholder=" Ex: RAG">
+            <button type="submit" class="skillAdd"> Add </button>
+          </form>
+        </div>
+   <% } %>
+  </div>
+</section>
+
+<!---------------------- PROJECT SECTION ----------------------->
+
+<section class="projects " id="projects">
+  <div class="projectDisplay">
+
+    <!-- Header -->
+    <div class="projects-header text-center mb-5">
+      <h2>My Projects</h2>
+      <p>Some things I’ve built recently</p>
+    </div>
+
+    <!-- Add Project Button -->
+    <div class="text-end mb-4">
+      <% if (user && user.role==="admin" ) { %>
+        <form action="/addProject" method="GET">
+          <button class="btn btn-primary add-project-btn">
+            + Add Project
+          </button>
+        </form>
+        <% } %>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="projects-grid">
+      <% projects.forEach(project=> { %>
+        <div class="project-card ">
+          <div class="project-card-header">
+            <span class="project-category">
+              <%= project.category %>
+            </span>
+            <span class="project-visibility public <%= project.visibility %>">
+              <%= project.visibility %>
+            </span>
+
+          </div>
+
+          <h3 class="project-title">
+            <%= project.title %>
+          </h3>
+          <p class="project-tagline">
+            <%= project.tagline %>
+          </p>
+
+          <img src="/uploads/<%= project.thumbnail %>" alt="Project Thumbnail" class="project-thumbnail" />
+
+
+          <p class="project-description">
+            <%= project.description %>
+          </p>
+
+          <div class="project-actions">
+            <a href="<%= project.githubRepoUrl %>" target="_blank" class="btn-github">GitHub
+            </a>
+            <a href="<%= project.liveDemoUrl %>" target="_blank" class="btn-github"> VIEW
+            </a>
+          </div>
+
+          <div class="project-footer">
+            Added on: <%= project.createdAt.toDateString() %>
+              <div class="editProject">
+                <% if (user && user.role==="admin" ) { %>
+                  <a href="/<%= project._id %>/editProjects">EDIT</a>
+                <% } %>
+              </div>
+          </div>
+        </div>
+        <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ----------------------------contact section ---------------------------- -->
+<section id="contact" class="contact-section">
+  <div class="contact-container">
+
+    <!-- Left -->
+    <div class="contact-info animate-left">
+      <h2>Let’s Connect</h2>
+      <p>
+        Have a project in mind, a question, or just want to say hello?
+        Feel free to reach out — I’m always open to discussing new ideas
+        and opportunities.
+      </p>
+
+      <div class="contact-details">
+        <p><strong>Email:</strong> mr0060195@gmail.com</p>
+        <p><strong>Location:</strong> India</p>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div class="contact-form animate-right">
+      <form method="POST" action="/contact">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+  </div>
+</section>
