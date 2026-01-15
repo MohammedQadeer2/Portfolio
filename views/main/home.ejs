@@ -1,11 +1,18 @@
 <section class="hero" id="home">
   <div class="hero-container">
-
     <!-- Profile Image -->
+     
     <div class="hero-image animate-left">
-      <img src="../images/ProfileImage.jpg" alt="Profile Picture">
+      <% for( img of profile ) { %>
+      <img src=<%= img.profileImage %> alt="Profile Picture">
+      <% } %>
+    <% if (user && user.role==="admin" ) { %>
+      <form method="POST" action="/profile/upload" enctype="multipart/form-data">
+        <input name="profileImage" class="profileUpload" type="file" required>
+        <button class="skillAdd" type="submit">Done</button>
+      </form>
+    <% } %>
     </div>
-
     <!-- Text Content -->
     <div class="hero-content animate-right">
       <h1>Mohammed Qadeer</h1>
@@ -46,7 +53,7 @@
 
 <!----------------------SKILLS SECTION------------------------->
 
-<section class="skills hero section-body" id="skills">
+<section class="skills section-body" id="skills">
   <div class="container">
     <div class="skills-header text-center mb-5">
       <h2>My Skills</h2>

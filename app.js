@@ -1,4 +1,6 @@
+require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const methodOverride = require("method-override");
 
 const app = express();
@@ -7,11 +9,11 @@ const path = require("path");
 const expressLayouts = require("express-ejs-layouts");
 const engine = require("ejs-mate");
 const {Project, Skill} = require("./models/project.js");
+const upload = require("./config/multer.js");
 const User = require("./models/users.js");
-const Contact = require("./models/contact.js");
+const {Contact, Profile} = require("./models/contact.js");
 const bcrypt = require("bcrypt");
 
-require("dotenv").config();
 const connectDB = require("./config/db");
 connectDB();
 
@@ -30,15 +32,15 @@ app.use(methodOverride("_method"));
 //taking file in storage using multer
 
 // Multer storage config:
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueName + path.extname(file.originalname));
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     cb(null, uniqueName + path.extname(file.originalname));
+//   },
+// });
 
 //File filter (image only):
 const fileFilter = (req, file, cb) => {
@@ -50,13 +52,12 @@ const fileFilter = (req, file, cb) => {
 };
 
 // Create upload middleware:
-const upload = multer({ storage, fileFilter });
+// const upload = multer({ storage, fileFilter });
 
 //Serve Uploaded Images (VERY IMPORTANT)
 app.use("/uploads", express.static("uploads"));
 
 //STEP 3️⃣ Login + Session (How server remembers you) npm install express-session
-const session = require("express-session");
 
 app.use(session({
   secret: process.env.SECRET, 
@@ -88,17 +89,38 @@ app.get("/home", async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
     const allskill = await Skill.find({});
+    const profile  = await Profile.find({});
 
     res.render("main/home.ejs", {
       projects,
       allskill,
-      user: req.session.user
+      user: req.session.user,
+      profile,
     });
   } catch (error) {
     console.error(error);
     res.send("Error loading home page");
   }
 });
+
+app.post("/profile/upload",upload.single("profileImage"),async (req, res) => {
+    try {
+      console.log(req.file);
+      // console.log(req.session.user);
+      // const user = await User.findById(req.session.user._id);
+      let Deleteimg = await Profile.deleteMany({})
+      if(req.session.user.role == "admin") {
+        await Profile.create({
+          profileImage: req.file.path,
+        });
+      }
+      res.redirect("/home");
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Upload failed");
+    }
+  }
+);
 
 app.get("/login", (req, res) => {
   res.render("./authentications/login.ejs");
@@ -180,7 +202,7 @@ app.post("/signup", async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    role: "user" // NEVER admin
+    role: "user",// NEVER admin
   });
   res.redirect("/login");
 });
