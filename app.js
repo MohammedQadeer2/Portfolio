@@ -85,7 +85,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/home", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const projects = await Project.find().sort({ createdAt: -1 });
     const allskill = await Skill.find({});
@@ -114,7 +114,7 @@ app.post("/profile/upload",upload.single("profileImage"),async (req, res) => {
           profileImage: req.file.path,
         });
       }
-      res.redirect("/home");
+      res.redirect("/");
     } catch (err) {
       console.log(err);
       res.status(500).send("Upload failed");
@@ -154,7 +154,7 @@ app.post("/login", async (req, res) => {
     role: user.role,
     name: user.name,
   };
-  res.redirect("/home");
+  res.redirect("/");
 });
 
 
@@ -168,7 +168,7 @@ app.post("/contact", async(req, res) => {
 
   console.log(newContact);
 
-  res.redirect("/home");
+  res.redirect("/");
 
 });
 
@@ -177,13 +177,13 @@ app.post("/addSkill", async(req, res) => {
   await Skill.create({
     newSkill
   });
-  res.redirect("/home");
+  res.redirect("/");
 });
 
 //Logout route
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("/home");
+    res.redirect("/");
   });
 });
 
@@ -218,7 +218,7 @@ app.post("/addProject", upload.single("thumbnail"), isAdmin, async (req, res) =>
     const project = Project.create({ ...req.body, thumbnail: req.file.path, });
     console.log("Saved project with image:", req.file);
 
-    res.redirect("/home");
+    res.redirect("/");
   } catch (error) {
     console.error(error);
     res.send("Error saving project");
@@ -244,7 +244,7 @@ app.put("/:id/addProject", isAdmin, upload.single("thumbnail"), async (req, res)
     await project.save();
     console.log(req.file.filename);
     console.log("saved");
-    res.redirect("/home");
+    res.redirect("/");
   } catch (error) {
     console.error(error);
     res.send("Error loading home page");
