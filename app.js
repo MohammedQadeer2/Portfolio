@@ -215,10 +215,8 @@ app.get("/addProject", isAdmin, (req, res) => {
 
 app.post("/addProject", upload.single("thumbnail"), isAdmin, async (req, res) => {
   try {
-    const project = new Project({ ...req.body, thumbnail: req.file.filename, });
-
-    await project.save();
-    console.log("Saved project with image:", project);
+    const project = Project.create({ ...req.body, thumbnail: req.file.path, });
+    console.log("Saved project with image:", req.file);
 
     res.redirect("/home");
   } catch (error) {
